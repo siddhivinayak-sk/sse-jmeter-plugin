@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.4.3">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Main" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+      </ThreadGroup>
+      <hashTree>
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="Test" enabled="true">
+          <boolProp name="TransactionController.includeTimers">false</boolProp>
+          <boolProp name="TransactionController.parent">false</boolProp>
+        </TransactionController>
+        <hashTree>
+          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="Test SSE - Standard" enabled="false">
+            <stringProp name="BeanShellSampler.query">log.info(&quot;L1&quot;);
+
+import java.util.HashMap;
+import java.util.Map;
+import com.sse.jmeter.plugin.SSEUtil;
+import java.util.ArrayList;
+
+
+log.info(&quot;L2&quot;);
+
+
+headers = new HashMap();
+expected = new ArrayList();
+expected.add(&quot;1&quot;);
+expected.add(&quot;2&quot;);
+expected.add(&quot;3&quot;);
+
+log.info(&quot;L3&quot;);
+
+util = new SSEUtil();
+
+log.info(&quot;L4&quot;);
+
+result = util.sseTest(&quot;http://localhost:8080/api/sse?events=3&amp;delay=1000&quot;, headers, expected, 60, 1000, log);
+
+log.info(&quot;L5&quot;);
+log.info(&quot;Result: &quot; + result);
+
+if(true == result) {
+	SampleResult.setSuccessful(true);
+	SampleResult.setResponseMessage(&quot;Success&quot;);
+	SampleResult.setResponseData(&quot;data&quot;);
+	IsSuccess = true;
+
+} else {
+	SampleResult.setSuccessful(false);
+	SampleResult.setResponseMessage(&quot;Failed, does not comply with SSE&quot;);
+	SampleResult.setResponseData(&quot;data&quot;);
+	IsSuccess = false;
+}
+
+
+
+
+
+</stringProp>
+            <stringProp name="BeanShellSampler.filename"></stringProp>
+            <stringProp name="BeanShellSampler.parameters"></stringProp>
+            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+          </BeanShellSampler>
+          <hashTree/>
+          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="Test SSE - Custom" enabled="false">
+            <stringProp name="BeanShellSampler.query">log.info(&quot;L1&quot;);
+
+import java.util.HashMap;
+import java.util.Map;
+import com.sse.jmeter.plugin.SSEUtil;
+import java.util.ArrayList;
+
+log.info(&quot;L2&quot;);
+
+
+headers = new HashMap();
+expected = new ArrayList();
+expected.add(&quot;1&quot;);
+expected.add(&quot;2&quot;);
+expected.add(&quot;3&quot;);
+
+
+log.info(&quot;L3&quot;);
+
+util = new SSEUtil();
+
+log.info(&quot;L4&quot;);
+
+result = util.sseTest(&quot;http://localhost:8080/api/sse/custom?events=3&amp;delay=1000&quot;, headers, expected, 60, 1000, log);
+
+log.info(&quot;L5&quot;);
+log.info(&quot;Result: &quot; + result);
+
+if(true == result) {
+	SampleResult.setSuccessful(true);
+	SampleResult.setResponseMessage(&quot;Success&quot;);
+	SampleResult.setResponseData(&quot;data&quot;);
+	IsSuccess = true;
+
+} else {
+	SampleResult.setSuccessful(false);
+	SampleResult.setResponseMessage(&quot;Failed, does not comply with SSE&quot;);
+	SampleResult.setResponseData(&quot;data&quot;);
+	IsSuccess = false;
+}
+
+
+
+
+
+</stringProp>
+            <stringProp name="BeanShellSampler.filename"></stringProp>
+            <stringProp name="BeanShellSampler.parameters"></stringProp>
+            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+          </BeanShellSampler>
+          <hashTree/>
+          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="Test SSE - Cloud" enabled="true">
+            <stringProp name="BeanShellSampler.query">log.info(&quot;L1&quot;);
+
+import java.util.HashMap;
+import java.util.Map;
+import com.sse.jmeter.plugin.SSEUtil;
+import java.util.ArrayList;
+
+
+log.info(&quot;L2&quot;);
+
+
+headers = new HashMap();
+expected = new ArrayList();
+expected.add(&quot;1&quot;);
+expected.add(&quot;2&quot;);
+expected.add(&quot;3&quot;);
+
+
+headers.put(&quot;Authorization&quot;, &quot;Bearer eyJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiYWxnIjoiZGlyIn0..Lb4Plo-DO0lmnWWaVsGGhg.p5kgdUHz_R6eBzLyuKILoPvRsfIW9gfQLBJ4SbPBeDZnAy7LHZXiwVJwjGjKXcD-YAQ2FzePtvZ6xLhBEXkm7i51HI2fm7tqNzQogNfPHVjbyaD0L1lW6btNC8I63coSziHDapdUEVhhAFN4Kjt3jRCoIIsl7RLrachK7tUQFygk3KiWVY1qPFEBRyZeHq7AaIuheJxPjT2oGsNQS6HtnnhJulVabveM0TJE6wHGcqPX0zIG3qLrzmLm01khcpUYxCudvaVJqeMUKQ45gLZXt_jrdMDYv_iX4mqwMfToR7mJA3B2WlgSIx0L63vOJlRz1k8JMg0uzu4b1QzjZjwxoIrDyfDjohVN7E4Y7PXPwkdTbByM_ARJnVvdYC0DsLfLs14YPFMXNHzHJcTCgcsx9uANuuzDmNIA57TZ6_Hh37abmL8lUz1ikItNSkjwqFdOzSWWluLEbKyKwhe6z38sPMbqHQOiqSkCdHqdvv_4LEg-tROe2HOhZLPr5AU8qi4ZAkiNsrdZkRCNH-pHU6jjO-hnNOHxZ8JmUIlyZ-qDUEBIcQ8hfxEtLtttujJLFbK_ZKmIgWkEKRFA8lWCn4PX0jcFzZY_o1XAM5VKxEP3PpV4ttj8HW9SWao8uZ1qV96NreuqjvTl5zRX0maD93c5z5n0SmB6Cm8G23hZv1y95C2-B2seVAdVm_h3Wsyhz2EByI_XqBbIJctGeKLTamuzLyyeYUwIvIDrxarLV0UDg7ERnTw8zKA7x3PBYk32e0s_slIuWOfUAt_iOfdBF9hM6kc3u_99lgy-cHpqywjovCqHDo4hBbMnjEg4UaUCq1gABM0OpsC9N2cqrVdEeyFRXk_qqIWzijzwxqClQegi_5AOwrua4Nns1fRFeE7-lfJ0_MO3dWJSzGdjyt9_7AmNdo78YMm1e-4QIF5y0UvI1MIW4uf27fmHTz9_1forIbTs6C1674rVbFKm6Hr1uSwN7BOEEDhRMUCMXyNqn5qj0u0A3ZhH15q7xrMtvWEWRtVUcQz_AAQFKlfexfBGf6oRHTjywosO8X-jGbB-zKzUov2NUL4PNUFAEUo2da9lE4a_dx-a1nutF0Rjw-NgerzuTB1BAM6dVLePjV6HtyQg_BvLLNz6Fv6NVJMYUBehhpvxcPwyleoSyjNNIlc5hyeoSPsvicf9Quv1yi7naYXRnFTlzyxAxqPOqFBVG-tCf5XD25qrefN8ehZguUJE-hA9GcqUHYbFEW6KKtBOBigcPNwAEnvWtnYdgBhz2cPtOKMl8hTdlnPvm10lMEI6ifC1FMFE_0NGcgVeNdRmSknEhe2LA_5S_RFSjbNeCq8sDeIbQXMZNzK5SBh48VO9mTaM6R8muui44c-S74KBXCl8HcKSOr99kpP5fNEItgNF6xn0zTn1OlvMC8ISMgz0WndmJy3wIIu2YK77foIeISJuGl_GKuTncRBsIAC2fxI-WdkXyOQ2Ih11Klr86UYN-6H-lwsKeIFXRxASNVkFOznQsxL-cfoSUJGO6cQlE-fsAfKtjnGwyzNyPrWIaPNSDUhJjFjQgMAF1-wSHhu33DHf0fUkZPgTVxsLjbkjusQuNPDKe5HXFly2Zz5TPo1VgTdQnBY2Nf8tUyAS7tEtdhIqpe6rpwex07KQNvKAl1rVZQVNJ7QvrVBdJln8JBwMxpRAxejKorZzShJK_gl7gYoJIQL-PCOTM7EpZmDkcIAugJRTcz9lFYa9lzsGfs1TttLp8O2OLKa0eLnL5x2BwF-XGGjc6CR4FUFcCfrw_C5OkV08fjxy8j6NQiReOvUq1xAvRxaAbKsGsDZIw316c3zH4v9MPTB57jU_knTAe7EBX0PBqCL7Ol-2sfOkP6ueNevi4evtOdMB3G3W5Cc5_0JoKdirhZLlMpNX3rttdSzHW49gGzDnwYJynLtqMtVLq5ayMQytglr1Zn0BfF2YCVixQn4T6-kAJwUu4VuP1_Yr3NhhDqUF6WTeUBC4Vu6kf6KicWYcKab5oAL0tc0WYmYSa3eWB4P9hiQZwFzGDEKrOZeRNDgrXXzvDYo418h0-VD0oPeIlIIsMeqy5Nkn2XmqziZXuwi4shIJJ5i-mU2XNOlmXEsuClyfPnVyWPoeGnD8E2Z3vbnFsD20iFRKBOg6MDQqzmjhawyIVKNd4gqrC5v1YlMrYuE-ZFDWgQ5ku8ESDp43K5GMDYiqKFqBckvsE81YUs5RAPkdZqAbqfn8OoYVuGD0HgLs90tObzeFnVDA2c98xZiQIGFTGlN2hPCSv57-BM_5nEIyLczf6End1WLCCmwTV-8UhpgzutCKIRinLjGmM8S0pEwFBdta9r27X9BCl5_doKlTGAGArdwGJNSY461f6A7dNJOLDcT2Zf9wYDpFJZnsW98g6wLBPLCXJTxJIcLXZJ9aStums3OZHlfT9szT5s6md9vkdJXUXOZiJgerY0c-WyKRTDf84MGJXPxmM85TfJThq0Q0ujk0cDVZJxq9jJg_Un-OVFTzx6yA3Q.SIgnVoMf9eAmanZTAWRtwA&quot;);
+
+
+
+log.info(&quot;L3&quot;);
+
+util = new SSEUtil();
+
+log.info(&quot;L4&quot;);
+
+result = util.sseTest(&quot;https://login.core-4.dev22r1.sbcp.io/service-sample-sse/api/sse?events=3&amp;delay=1000&quot;, headers, expected, 100, 1000, log);
+
+log.info(&quot;L5&quot;);
+log.info(&quot;Result: &quot; + result);
+
+if(true == result) {
+	SampleResult.setSuccessful(true);
+	SampleResult.setResponseMessage(&quot;Success&quot;);
+	SampleResult.setResponseData(&quot;data&quot;);
+	IsSuccess = true;
+
+} else {
+	SampleResult.setSuccessful(false);
+	SampleResult.setResponseMessage(&quot;Failed, does not comply with SSE&quot;);
+	SampleResult.setResponseData(&quot;data&quot;);
+	IsSuccess = false;
+}
+
+
+
+
+log.info(log.getClass().toString());
+</stringProp>
+            <stringProp name="BeanShellSampler.filename"></stringProp>
+            <stringProp name="BeanShellSampler.parameters"></stringProp>
+            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+          </BeanShellSampler>
+          <hashTree/>
+          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="Test SSE - No Stream" enabled="false">
+            <stringProp name="BeanShellSampler.query">log.info(&quot;L1&quot;);
+
+import java.util.HashMap;
+import java.util.Map;
+import com.sse.jmeter.plugin.SSEUtil;
+import java.util.ArrayList;
+
+
+log.info(&quot;L2&quot;);
+
+
+headers = new HashMap();
+expected = new ArrayList();
+expected.add(&quot;1&quot;);
+expected.add(&quot;2&quot;);
+expected.add(&quot;3&quot;);
+
+
+log.info(&quot;L3&quot;);
+
+util = new SSEUtil();
+
+log.info(&quot;L4&quot;);
+
+result = util.sseTest(&quot;http://localhost:8080/api/sse/simple?events=3&amp;delay=1000&quot;, headers, expected, 60, 1000, log);
+
+log.info(&quot;L5&quot;);
+log.info(&quot;Result: &quot; + result);
+
+if(true == result) {
+	SampleResult.setSuccessful(true);
+	SampleResult.setResponseMessage(&quot;Success&quot;);
+	SampleResult.setResponseData(&quot;data&quot;);
+	IsSuccess = true;
+
+} else {
+	SampleResult.setSuccessful(false);
+	SampleResult.setResponseMessage(&quot;Failed, does not comply with SSE&quot;);
+	SampleResult.setResponseData(&quot;data&quot;);
+	IsSuccess = false;
+}
+
+
+
+
+
+</stringProp>
+            <stringProp name="BeanShellSampler.filename"></stringProp>
+            <stringProp name="BeanShellSampler.parameters"></stringProp>
+            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+          </BeanShellSampler>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
